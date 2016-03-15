@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+//@import "loaders.css/loaders.css";
+//@import "hover/css/hover.css";
+//@import "animate.css/animate.css";
