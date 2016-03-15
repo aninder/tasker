@@ -36,15 +36,17 @@ group :development, :test do
   gem  'rails-footnotes'
   gem  'traceroute'   #unused routes
   gem 'peek'
+  gem 'stackprof'
+  gem "rspec-rails", '3.4.2'
+
 end
 
 group :test do
-  gem 'rspec', '3.3.0'
-  gem "rspec-rails", '3.3.3'
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', :require => false
   gem 'web-console', '~> 2.0'
+  gem 'spring-commands-rspec'
 end
 
