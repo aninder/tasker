@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     @tasks = Task.all
+    # @tasks.today = Task.to
   end
 
   # GET /tasks/1

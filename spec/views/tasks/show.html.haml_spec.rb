@@ -4,7 +4,7 @@ RSpec.describe "tasks/show", type: :view do
   before(:each) do
     @task = assign(:task, Task.create!(
       :name => "Name",
-      :start_date => Date.current,
+      :start_date => Date.today,
       :completed => false
     ))
   end

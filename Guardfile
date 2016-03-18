@@ -108,16 +108,16 @@ guard :rspec, cmd: "bundle exec spring rspec" do
   end
 end
 
-guard 'brakeman', :run_on_start => true do
-  watch(%r{^app/.+\.(erb|haml|rhtml|rb)$})
-  watch(%r{^config/.+\.rb$})
-  watch(%r{^lib/.+\.rb$})
-  watch('Gemfile')
-end
+# guard 'brakeman', :run_on_start => false do
+#   watch(%r{^app/.+\.(erb|haml|rhtml|rb)$})
+#   watch(%r{^config/.+\.rb$})
+#   watch(%r{^lib/.+\.rb$})
+#   watch('Gemfile')
+# end
 
 # Add files and commands to this file, like the example:
 #   watch(%r{file/path}) { `command(s)` }
 #
-guard :shell do
-  watch(/(.*).txt/) {|m| `tail #{m[0]}` }
-end
+# guard :shell do
+#   watch(/(.*).txt/) {|m| `tail #{m[0]}` }
+# end

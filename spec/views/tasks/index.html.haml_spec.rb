@@ -5,12 +5,12 @@ RSpec.describe "tasks/index", type: :view do
     assign(:tasks, [
       Task.create!(
         :name => "Name",
-        :start_date => Date.current,
+        :start_date => Date.today,
         :completed => false
       ),
       Task.create!(
         :name => "Name2",
-        :start_date => Date.current,
+        :start_date => Date.today,
         :completed => false
       )
     ])
