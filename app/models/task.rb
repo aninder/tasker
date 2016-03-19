@@ -7,7 +7,8 @@ class Task < ActiveRecord::Base
 
   scope :today_incomplete_tasks, -> { where(completed: false).where("start_date = ?", Date.today) }
   scope :today_complete_tasks, -> { where(completed: true).where("start_date = ?", Date.today) }
-  scope :later_todo_tasks, -> { where("start_date > ?", Date.today) }
+  scope :tomorrow_tasks, -> { where("start_date = ?", Date.tomorrow) }
+  scope :later_todo_tasks, -> { where("start_date > ?", Date.tomorrow) }
 
   def start_date_cannot_be_in_the_past
     if !start_date.blank? && start_date < Date.today

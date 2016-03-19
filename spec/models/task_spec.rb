@@ -66,6 +66,18 @@ RSpec.describe Task, type: :model do
     end
   end
 
+  describe "#tomorrow tasks" do
+    it "returns incomplete todo tasks for today" do
+      FactoryGirl.create(:task, start_date: Date.today, completed:false)
+      FactoryGirl.create(:task, start_date: Date.today, completed:true)
+      FactoryGirl.create(:task, start_date: Date.tomorrow, completed:false)
+      FactoryGirl.create(:task, start_date: 3.day.from_now, completed:false)
+      FactoryGirl.create(:task, start_date: 23.day.from_now, completed:false)
+
+      expect(Task.tomorrow_tasks.size).to eq 1
+    end
+  end
+
   describe "tasks on a later date" do
     context "with no completed tasks for today" do
       it "should return null" do
@@ -82,7 +94,7 @@ RSpec.describe Task, type: :model do
         FactoryGirl.create(:task, start_date: 23.day.from_now, completed:false)
         FactoryGirl.create(:task, start_date: 12.day.from_now, completed:false)
 
-        expect(Task.later_todo_tasks.size).to eq 4
+        expect(Task.later_todo_tasks.size).to eq 3
       end
     end
   end

@@ -1,7 +1,6 @@
 .container
   .jumbotron
     %h1 Listing tasks
-
     %table
       %thead
         %tr
@@ -12,9 +11,19 @@
           %th
           %th
           %th
-
       %tbody
-        - @tasks.each do |task|
+        %h2 Today Tasks
+        - @tasks_today_incomplete.each do |task|
+          %tr
+            %td= task.name
+            %td= task.start_date
+            %td= task.finish_date
+            %td= task.completed
+            %td= link_to 'Show', task
+            %td= link_to 'Edit', edit_task_path(task)
+            %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %h2 Today Tasks
+        - @tasks_today_incomplete.each do |task|
           %tr
             %td= task.name
             %td= task.start_date

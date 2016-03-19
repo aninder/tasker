@@ -4,7 +4,10 @@ class TasksController < ApplicationController
   # GET /tasks
   def index
     @tasks = Task.all
-    # @tasks.today = Task.to
+    @tasks_today_incomplete = Task.today_incomplete_tasks
+    @tasks_today_complete = Task.today_complete_tasks
+    @tasks_tomorrow = Task.tomorrow_tasks
+    @tasks_later = Task.later_todo_tasks
   end
 
   # GET /tasks/1
