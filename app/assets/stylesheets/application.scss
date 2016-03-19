@@ -12,10 +12,12 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap-datepicker3
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+//@import "Sortable";
 //@import "loaders.css/loaders.css";
 //@import "hover/css/hover.css";
 //@import "animate.css/animate.css";

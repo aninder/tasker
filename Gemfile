@@ -8,6 +8,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'haml-rails'
 gem 'bootstrap-sass'
+gem 'bootstrap-datepicker-rails', github: 'Nerian/bootstrap-datepicker-rails'
 
 group :development, :test do
   gem 'spring'

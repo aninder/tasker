@@ -1,91 +1,65 @@
 .container
   .jumbotron
-    %h1 Listing tasks
-    %table
-      %thead
-        %tr
-          %th Name
-          %th Start date
-          %th Finish date
-          %th Completed
-          %th
-          %th
-          %th
-      %tbody
-        %h2 Today Tasks TODO
-        - @tasks_today_incomplete.each do |task|
-          %tr
-            %td= task.name
-            %td= task.start_date
-            %td= task.finish_date
-            %td= task.completed
-            %td= link_to 'Show', task
-            %td= link_to 'Edit', edit_task_path(task)
-            %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
-    %table
-      %thead
-        %tr
-          %th Name
-          %th Start date
-          %th Finish date
-          %th Completed
-          %th
-          %th
-          %th
-      %tbody
-        %h2 Today Tasks Complete
-        - @tasks_today_complete.each do |task|
-          %tr
-            %td= task.name
-            %td= task.start_date
-            %td= task.finish_date
-            %td= task.completed
-            %td= link_to 'Show', task
-            %td= link_to 'Edit', edit_task_path(task)
-            %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
-    %table
-      %thead
-        %tr
-          %th Name
-          %th Start date
-          %th Finish date
-          %th Completed
-          %th
-          %th
-          %th
-      %tbody
-        %h2 Tomorrow Tasks
-        - @tasks_tomorrow.each do |task|
-          %tr
-            %td= task.name
-            %td= task.start_date
-            %td= task.finish_date
-            %td= task.completed
-            %td= link_to 'Show', task
-            %td= link_to 'Edit', edit_task_path(task)
-            %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
-    %table
-      %thead
-        %tr
-          %th Name
-          %th Start date
-          %th Finish date
-          %th Completed
-          %th
-          %th
-          %th
-      %tbody
-        %h2 Later Tasks
-        - @tasks_tomorrow.each do |task|
-          %tr
-            %td= task.name
-            %td= task.start_date
-            %td= task.finish_date
-            %td= task.completed
-            %td= link_to 'Show', task
-            %td= link_to 'Edit', edit_task_path(task)
-            %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    - flash.each do |k, v|
+      .alert
+        =v
+    %h2 Today's Tasks
+    %h3  TO DO:
+    %ul.list-group#today_incomplete
+      - @tasks_today_incomplete.each do |task|
+        %li.list-group-item
+          =check_box("task",task.id, {checked:task.completed, class:'check'})
+          =task.name
+    =render 'form'
+    %h3  Done:
+    %ul.list-group#today_complete
+      - @tasks_today_complete.each do |task|
+        %li.list-group-item.list-group-item-success
+          =check_box("task",task.id, {checked:task.completed, class:'check'})
+          =task.name
 
-    %br
+    -#  %thead
+    -#    %tr
+    -#      %th Name
+    -#      %th Start date
+    -#      %th Finish date
+    -#      %th Completed
+    -#      %th
+    -#      %th
+    -#      %th
+    -#  %tbody
+    -#    %h2 Tomorrow Tasks
+    -#    - @tasks_tomorrow.each do |task|
+    -#      %tr
+    -#        %td= task.name
+    -#        %td= task.start_date
+    -#        %td= task.finish_date
+    -#        %td= task.completed
+    -#        %td= link_to 'Show', task
+    -#        %td= link_to 'Edit', edit_task_path(task)
+    -#        %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    -#%table
+    -#  %thead
+    -#    %tr
+    -#      %th Name
+    -#      %th Start date
+    -#      %th Finish date
+    -#      %th Completed
+    -#      %th
+    -#      %th
+    -#      %th
+    -#  %tbody
+    -#    %h2 Later Tasks
+    -#    - @tasks_tomorrow.each do |task|
+    -#      %tr
+    -#        %td= task.name
+    -#        %td= task.start_date
+    -#        %td= task.finish_date
+    -#        %td= task.completed
+    -#        %td= link_to 'Show', task
+    -#        %td= link_to 'Edit', edit_task_path(task)
+    -#        %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    -#
+    -#%br
 
-    = link_to 'New Task', new_task_path
+    -#= link_to 'New Task', new_task_path
