@@ -12,7 +12,7 @@
           %th
           %th
       %tbody
-        %h2 Today Tasks
+        %h2 Today Tasks TODO
         - @tasks_today_incomplete.each do |task|
           %tr
             %td= task.name
@@ -22,8 +22,61 @@
             %td= link_to 'Show', task
             %td= link_to 'Edit', edit_task_path(task)
             %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
-        %h2 Today Tasks
-        - @tasks_today_incomplete.each do |task|
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Start date
+          %th Finish date
+          %th Completed
+          %th
+          %th
+          %th
+      %tbody
+        %h2 Today Tasks Complete
+        - @tasks_today_complete.each do |task|
+          %tr
+            %td= task.name
+            %td= task.start_date
+            %td= task.finish_date
+            %td= task.completed
+            %td= link_to 'Show', task
+            %td= link_to 'Edit', edit_task_path(task)
+            %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Start date
+          %th Finish date
+          %th Completed
+          %th
+          %th
+          %th
+      %tbody
+        %h2 Tomorrow Tasks
+        - @tasks_tomorrow.each do |task|
+          %tr
+            %td= task.name
+            %td= task.start_date
+            %td= task.finish_date
+            %td= task.completed
+            %td= link_to 'Show', task
+            %td= link_to 'Edit', edit_task_path(task)
+            %td= link_to 'Destroy', task, :method => :delete, :data => { :confirm => 'Are you sure?' }
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Start date
+          %th Finish date
+          %th Completed
+          %th
+          %th
+          %th
+      %tbody
+        %h2 Later Tasks
+        - @tasks_tomorrow.each do |task|
           %tr
             %td= task.name
             %td= task.start_date

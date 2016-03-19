@@ -1,7 +1,12 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'ffaker'
+
+2.times do
+  #today tasks complete
+  Task.create(name:FFaker::Lorem.phrase, start_date:Date.today, completed:true )
+  #today tasks incomplete
+  Task.create(name:FFaker::Lorem.sentence, start_date:Date.today, completed:false)
+  #tomorrow todo tasks
+  Task.create(name:FFaker::Lorem.sentence, start_date:Date.tomorrow, completed:false)
+  #future incomplete tasks
+  Task.create(name:FFaker::Lorem.sentence, start_date:(2..10).to_a.sample.day.from_now, completed:false)
+end
