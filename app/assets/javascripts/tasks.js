@@ -47,12 +47,12 @@ $(document).ready(function(){
         form.appendChild(create_task_field('completed', checked));
 
         if(checked) {
-            date = new Date();
+            var date = new Date();
             form.appendChild(create_task_field('finish_date(1i)', date.getFullYear()));
             form.appendChild(create_task_field('finish_date(2i)', date.getMonth()+1));
             form.appendChild(create_task_field('finish_date(3i)', date.getDate()));
         } else {
-            date = new Date();
+            var date = new Date();
             form.appendChild(create_task_field('start_date(1i)', date.getFullYear()));
             form.appendChild(create_task_field('start_date(2i)', date.getMonth()+1));
             form.appendChild(create_task_field('start_date(3i)', date.getDate()));
@@ -73,23 +73,47 @@ $(document).ready(function(){
         group: 'item',
         sort: false,
         onAdd: function(e) {
-            console.log(e)
-            //alert("dragged from "+e.from)
-        }
+            console.log($(e.item).children('input[type=checkbox]'))
+            var item_id = $(e.item).children('input[type=checkbox]').attr('id').replace("task_","");
+            //alert(item_id)
+
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/tasks/"+item_id);
+
+            form.appendChild(create_authenticity_token_field());
+            form.appendChild(create_patch_request_field());
+            form.appendChild(create_task_field('completed', false));
+
+            var date = new Date();
+            form.appendChild(create_task_field('start_date(1i)', date.getFullYear()));
+            form.appendChild(create_task_field('start_date(2i)', date.getMonth()+1));
+            form.appendChild(create_task_field('start_date(3i)', date.getDate()));
+
+            document.body.appendChild(form);
+            form.submit();        }
     });
 
     byId('addTask').onclick = function () {
         Ply.dialog('prompt', {
-            title: 'Add',
+            title: 'Add task todo today',
             form: { name: 'name' }
         }).done(function (ui) {
-            var el = document.createElement('li');
-            el.innerHTML = ui.data.name + '<i class="js-remove">✖</i>';
-            editableList.el.appendChild(el);
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/tasks");
+
+            form.appendChild(create_authenticity_token_field());
+            form.appendChild(create_task_field('name', ui.data.name));
+            var date = new Date();
+            form.appendChild(create_task_field('start_date(1i)', date.getFullYear()));
+            form.appendChild(create_task_field('start_date(2i)', date.getMonth()+1));
+            form.appendChild(create_task_field('start_date(3i)', date.getDate()));
+
+            document.body.appendChild(form);
+            form.submit();
         });
     };
-
-
 
     var el = document.getElementById('today_complete');
     var sortable = Sortable.create(el, {
@@ -108,9 +132,9 @@ $(document).ready(function(){
             form.appendChild(create_patch_request_field());
             form.appendChild(create_task_field('completed', true));
 
-            date = new Date();
+            var date = new Date();
             form.appendChild(create_task_field('finish_date(1i)', date.getFullYear()));
-            form.appendChild(create_task_field('finish_date(2i)', date.getMonth()));
+            form.appendChild(create_task_field('finish_date(2i)', date.getMonth()+1));
             form.appendChild(create_task_field('finish_date(3i)', date.getDate()));
 
             document.body.appendChild(form);

@@ -24,6 +24,7 @@ class TasksController < ApplicationController
 
   # POST /tasks
   def create
+    # binding.pry
     @task = Task.new(task_params)
     if @task.save
       redirect_to tasks_url, notice: 'Task was successfully created.'
