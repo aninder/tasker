@@ -14,6 +14,10 @@ class TasksController < ApplicationController
   def show
   end
 
+  def new
+    @task = Task.new
+  end
+
   # GET /tasks/1/edit
   def edit
   end
@@ -37,11 +41,16 @@ class TasksController < ApplicationController
 
   # PATCH/PUT /tasks/1
   def update
-    binding.pry
-    if @task.update(task_params)
-      redirect_to @task, notice: 'Task was successfully updated.'
+    request_params = task_params
+    if request_params['start_date(1i)']
+      request_params['finish_date'] = nil
+    end
+    # binding.pry
+    if @task.update(request_params)
+      redirect_to tasks_url, notice: "Task with id #{@task.id} was successfully updated."
     else
-      render :edit
+      err = "#{@task.errors.full_messages.join('<br/>')}".html_safe
+      redirect_to tasks_url, flash: {:error => err}
     end
   end
 

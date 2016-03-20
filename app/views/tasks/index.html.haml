@@ -1,7 +1,7 @@
 .container
   .jumbotron
     - flash.each do |k, v|
-      .alert
+      .alert{:class => "alert-#{k}", :role => "alert", :'data-dismiss'=>"alert"}
         =v
     %h2 Today's Tasks
     %h3  TO DO:
@@ -11,11 +11,12 @@
           =check_box("task",task.id, {checked:task.completed, class:'check'})
           =task.name
     =render 'form'
+    #addTask.btn.btn-success Add Task
     %h3  Done:
     %ul.list-group#today_complete
       - @tasks_today_complete.each do |task|
         %li.list-group-item.list-group-item-success
-          =check_box("task",task.id, {checked:task.completed, class:'check'})
+          =check_box("task", task.id, {checked:task.completed, class:'check'})
           =task.name
 
     -#  %thead

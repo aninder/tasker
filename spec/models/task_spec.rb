@@ -25,6 +25,13 @@ RSpec.describe Task, type: :model do
     expect(task.errors.messages[:completed][0]).to eq("can't be completed before starting")
   end
 
+  it "is invalid when completed with no finish date" do
+    task.completed = true
+
+    expect(task).to_not be_valid
+    expect(task.errors.messages[:completed][0]).to eq("add a finish date")
+  end
+
   describe "#today todo tasks" do
     context "with no tasks for today" do
       it "should return null" do
@@ -36,11 +43,11 @@ RSpec.describe Task, type: :model do
       it "returns incomplete todo tasks for today" do
         FactoryGirl.create(:task, start_date: Date.today, completed:false)
         FactoryGirl.create(:task, start_date: Date.today, completed:false)
-        FactoryGirl.create(:task, start_date: Date.today, completed:true)
-        FactoryGirl.create(:task, start_date: Date.today, completed:true)
+        FactoryGirl.create(:task, start_date: Date.today, finish_date:Date.today, completed:true)
+        FactoryGirl.create(:task, start_date: Date.today, finish_date:Date.today, completed:true)
         FactoryGirl.create(:task, start_date: Date.tomorrow, completed:false)
         FactoryGirl.create(:task, start_date: Date.tomorrow, completed:false)
-
+binding.pry
         expect(Task.today_incomplete_tasks.size).to eq 2
       end
     end
@@ -57,7 +64,7 @@ RSpec.describe Task, type: :model do
       it "returns incomplete todo tasks for today" do
         FactoryGirl.create(:task, start_date: Date.today, completed:false)
         FactoryGirl.create(:task, start_date: Date.today, completed:false)
-        FactoryGirl.create(:task, start_date: Date.today, completed:true)
+        FactoryGirl.create(:task, start_date: Date.today, finish_date:Date.today, completed:true)
         FactoryGirl.create(:task, start_date: Date.tomorrow, completed:false)
         FactoryGirl.create(:task, start_date: Date.tomorrow, completed:false)
 
@@ -69,7 +76,7 @@ RSpec.describe Task, type: :model do
   describe "#tomorrow tasks" do
     it "returns incomplete todo tasks for today" do
       FactoryGirl.create(:task, start_date: Date.today, completed:false)
-      FactoryGirl.create(:task, start_date: Date.today, completed:true)
+      FactoryGirl.create(:task, start_date: Date.today, finish_date:Date.today, completed:true)
       FactoryGirl.create(:task, start_date: Date.tomorrow, completed:false)
       FactoryGirl.create(:task, start_date: 3.day.from_now, completed:false)
       FactoryGirl.create(:task, start_date: 23.day.from_now, completed:false)
@@ -88,7 +95,7 @@ RSpec.describe Task, type: :model do
     context "with some to do tasks today" do
       it "returns incomplete todo tasks for today" do
         FactoryGirl.create(:task, start_date: Date.today, completed:false)
-        FactoryGirl.create(:task, start_date: Date.today, completed:true)
+        FactoryGirl.create(:task, start_date: Date.today, finish_date:Date.today, completed:true)
         FactoryGirl.create(:task, start_date: Date.tomorrow, completed:false)
         FactoryGirl.create(:task, start_date: 3.day.from_now, completed:false)
         FactoryGirl.create(:task, start_date: 23.day.from_now, completed:false)

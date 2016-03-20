@@ -1,3 +1,19 @@
 // Place all the styles related to the tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#addTask button {
+  color: #fff;
+  width: 100%;
+  border: none;
+  outline: 0;
+  opacity: .5;
+  margin: 10px 0 0;
+  transition: opacity .1s ease;
+  cursor: pointer;
+  background: #5F9EDF;
+  padding: 10px 0;
+  font-size: 20px;
+}
+#filter button:hover {
+  opacity: 1;
+}

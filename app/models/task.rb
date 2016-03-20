@@ -4,6 +4,8 @@ class Task < ActiveRecord::Base
   validates :start_date, presence: true
   validate :start_date_cannot_be_in_the_past
   validate :not_completed_when_start_date_in_future
+  validate :finish_date_when_completed
+  validate :finish_date_greater_then_start_date
 
   scope :today_incomplete_tasks, -> { where(completed: false).where("start_date = ?", Date.today) }
   scope :today_complete_tasks, -> { where(completed: true).where("start_date = ?", Date.today) }
@@ -17,8 +19,20 @@ class Task < ActiveRecord::Base
   end
 
   def not_completed_when_start_date_in_future
-    if (start_date && start_date > Date.today && completed)
+    if start_date && start_date > Date.today && completed
       errors.add(:completed, "can't be completed before starting")
+    end
+  end
+
+  def finish_date_when_completed
+    if completed && !finish_date
+      errors.add(:completed, "add a finish date")
+    end
+  end
+
+  def finish_date_greater_then_start_date
+    if completed && finish_date && finish_date < start_date
+      errors.add(:completed, "finish date cannot be earlier than start date")
     end
   end
 
